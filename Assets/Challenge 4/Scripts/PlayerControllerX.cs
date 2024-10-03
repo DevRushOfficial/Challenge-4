@@ -6,6 +6,7 @@ public class PlayerControllerX : MonoBehaviour
     private Rigidbody playerRb;
     private float normalSpeed = 500;
     private GameObject focalPoint;
+    public ParticleSystem smokeParticle;
 
 
     private float boostSpeed = 1000;
@@ -29,6 +30,7 @@ public class PlayerControllerX : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && !isSpeedBoosting)
         {
+            smokeParticle.Play();
             StartCoroutine(SpeedBoostCooldown());
         }
 
