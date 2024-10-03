@@ -4,6 +4,7 @@ public class SpawnManagerX : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public GameObject powerupPrefab;
+    public const float SpeedBoost = 0.5f;
 
     private float spawnRangeX = 10;
     private float spawnZMin = 15; // set min spawn Z
@@ -12,6 +13,7 @@ public class SpawnManagerX : MonoBehaviour
     public int enemyCount;
     public int waveCount = 1;
 
+    
 
     public GameObject player; 
 
@@ -52,6 +54,7 @@ public class SpawnManagerX : MonoBehaviour
         }
 
         waveCount++;
+        EnemyX.speed += SpeedBoost;
         ResetPlayerPosition(); // put player back at start
     }
 

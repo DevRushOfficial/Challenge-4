@@ -2,7 +2,7 @@
 
 public class EnemyX : MonoBehaviour
 {
-    public float speed;
+    public static float speed = 1;
     private Rigidbody enemyRb;
     private GameObject playerGoal;
 
