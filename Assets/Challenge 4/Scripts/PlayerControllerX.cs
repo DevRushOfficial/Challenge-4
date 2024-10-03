@@ -4,9 +4,12 @@ using UnityEngine;
 public class PlayerControllerX : MonoBehaviour
 {
     private Rigidbody playerRb;
-    private float speed = 500;
+    private float normalSpeed = 500;
     private GameObject focalPoint;
 
+
+    private float boostSpeed = 1000;
+    private bool isSpeedBoosting = false;
     public bool hasPowerup = false;
     public GameObject powerupIndicator;
     public int powerUpDuration = 5;
@@ -22,9 +25,16 @@ public class PlayerControllerX : MonoBehaviour
 
     void Update()
     {
+        float currentSpeed = isSpeedBoosting ? boostSpeed : normalSpeed;
+
+        if (Input.GetKeyDown(KeyCode.Space) && !isSpeedBoosting)
+        {
+            StartCoroutine(SpeedBoostCooldown());
+        }
+
         // Add force to player in direction of the focal point (and camera)
         float verticalInput = Input.GetAxis("Vertical");
-        playerRb.AddForce(focalPoint.transform.forward * verticalInput * speed * Time.deltaTime); 
+        playerRb.AddForce(focalPoint.transform.forward * verticalInput * currentSpeed * Time.deltaTime); 
 
         // Set powerup indicator position to beneath player
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.6f, 0);
@@ -48,6 +58,13 @@ public class PlayerControllerX : MonoBehaviour
         yield return new WaitForSeconds(powerUpDuration);
         hasPowerup = false;
         powerupIndicator.SetActive(false);
+    }
+
+    IEnumerator SpeedBoostCooldown()
+    {
+        isSpeedBoosting = true;
+        yield return new WaitForSeconds(powerUpDuration);
+        isSpeedBoosting = false;
     }
 
     // If Player collides with enemy
