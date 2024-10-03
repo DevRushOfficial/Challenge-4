@@ -33,7 +33,5 @@ public class EnemyX : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
     }
-
 }
